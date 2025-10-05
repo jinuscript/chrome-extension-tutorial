@@ -5,5 +5,6 @@
   "description": "Add, view, and delete simple notes",
   "action": {
     "default_popup": "index.html"
-  }
+  },
+  "permissions": ["storage"]
 }

@@ -1,9 +1,21 @@
 import { useState } from "react";
 
+type Note = { id: number; text: string };
+
 const App = () => {
   const [text, setText] = useState("");
+  const [notes, setNotes] = useState<Note[]>([]);
 
-  const addNote = () => {};
+  const addNote = () => {
+    if (!text.trim()) return;
+
+    const newNote = { id: Date.now(), text: text.trim() };
+
+    setNotes([newNote, ...notes]);
+    setText("");
+  };
+
+  const deleteNote = (id: number) => {};
 
   return (
     <div className="w-72 p-4 bg-gray-50 rounded-lg shadow-md font-sans">
@@ -23,6 +35,15 @@ const App = () => {
         >
           Add
         </button>
+      </div>
+
+      <div>
+        {notes.map((note) => (
+          <div key={note.id}>
+            <span>{note.text}</span>
+            <button onClick={() => deleteNote(note.id)}>제거</button>
+          </div>
+        ))}
       </div>
     </div>
   );

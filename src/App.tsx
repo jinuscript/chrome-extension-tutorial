@@ -6,6 +6,13 @@ const App = () => {
   const [text, setText] = useState("");
   const [notes, setNotes] = useState<Note[]>([]);
 
+  // 크롬 스토리지 호출
+  useEffect(() => {
+    chrome.storage.sync.get({ notes: [] }, (data) => {
+      setNotes(data.notes);
+    });
+  }, []);
+
   // 크롬 스토리지 저장
   useEffect(() => {
     chrome.storage.sync.set({ notes });

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type Note = { id: number; text: string };
 
@@ -6,6 +6,12 @@ const App = () => {
   const [text, setText] = useState("");
   const [notes, setNotes] = useState<Note[]>([]);
 
+  // 크롬 스토리지 저장
+  useEffect(() => {
+    chrome.storage.sync.set({ notes });
+  }, [notes]);
+
+  // 노틎 저장
   const addNote = () => {
     if (!text.trim()) return;
 
@@ -15,6 +21,7 @@ const App = () => {
     setText("");
   };
 
+  // 노트 제거
   const deleteNote = (id: number) => {
     setNotes(notes.filter((note) => note.id !== id));
   };
